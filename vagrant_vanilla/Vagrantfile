@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">=1.7.3"
+Vagrant.configure(2) do |config|
+    config.vm.provider :virtualbox do |v|
+        v.memory = 1024
+        v.cpus = 1
+    end
+
+    config.vm.box = "ubuntu/trusty64"
+    config.vm.network "private_network", ip: "10.100.100.100"
+    config.vm :forwareded_port, host:80, guest:80
+    config.vm.synced_folder ".", "/app"
+end
+
